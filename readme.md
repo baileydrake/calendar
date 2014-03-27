@@ -8,7 +8,7 @@ Fourth day working with Active Record and Ruby.
 
 * * *
 
-[-] First, let users create, edit, and delete events with a description, location, and a start and end date and time.
+[+] First, let users create, edit, and delete events with a description, location, and a start and end date and time.
 [-] Next, let users list out the events in the order in which they will occur. By default, only list events in the future.
 [-] Now, create a view that lets users choose to only view events on the current day, week, or month.
 [-] In the day/week/month view, let users choose to view the previous or following day/week/month, so that they can "scroll" through their events.

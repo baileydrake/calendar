@@ -6,6 +6,6 @@ ActiveRecord::Base.establish_connection(YAML::load(File.open('./db/config.yml'))
 
 RSpec.configure do |config|
   config.after(:each) do
-    ************.all.each { |task| task.destroy }
+    Event.all.each { |event| event.destroy }
   end
 end
