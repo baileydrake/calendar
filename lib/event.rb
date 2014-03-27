@@ -27,35 +27,39 @@ class Event < ActiveRecord::Base
   end
 
   def self.today_day
-    found_events = []
-    events = Event.where(:start_date => Date.today)
-    events.each do |event|
-      found_events << event
-    end
-    found_events
+    Event.where(:start_date => Date.today)
+
   end
 
   def self.this_week
-    week_events = []
-    Event.all.each do |event|
-      if event.start_date != nil
-        if event.start_date.cweek == Date.today.cweek
-          week_events << event
-        end
-      end
-    end
-    week_events
+    Event.where(:start_date => Date.today.at_beginning_of_week..Date.today.at_end_of_week)
   end
 
   def self.this_month
-    month_events = []
-    Event.all.each do |event|
-      if event.start_date !=nil
-        if (event.start_date.mon && event.start_date.cwyear) == (Date.today.mon && Date.today.cwyear)
-          month_events << event
-        end
-      end
-    end
-    month_events
+    Event.where(:start_date => Date.today.at_beginning_of_month..Date.today.at_end_of_month)
+  end
+
+  def self.next_date(date)
+    Event.where(:start_date => date + 1)
+  end
+
+  def self.previous_date(date)
+    Event.where(:start_date => date - 1)
+  end
+
+  def self.next_week(week)
+    Event.where(:start_date => week.next_week.at_beginning_of_week..week.next_week.at_end_of_week)
+  end
+
+  def self.previous_week(week)
+    Event.where(:start_date => week.prev_week.at_beginning_of_week..week.prev_week.at_end_of_week)
+  end
+
+  def self.next_month(month)
+    Event.where(:start_date => month.at_beginning_of_month.next_month..month.at_end_of_month.next_month)
+  end
+
+  def self.previous_month(month)
+    Event.where(:start_date => month.at_beginning_of_month.prev_month..month.at_end_of_month.prev_month)
   end
 end

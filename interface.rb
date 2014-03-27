@@ -27,6 +27,7 @@ def main
     view_calendar
   when 'x'
     puts 'Adiós'
+    exit
   end
 end
 
@@ -56,8 +57,43 @@ def today_screen
   Event.today_day.each do |event|
     puts "\t{event.description} | #{event.location} | #{event.start_date}, #{event.start_time} - #{event.end_date}, #{event.end_time}"
   end
-  puts "Press enter to go back to main menu."
-  gets
+  date = Date.today
+  day_choice_menu(date)
+end
+
+def next_day(date)
+  puts "#{date} Events:"
+  puts "---------------"
+  Event.next_date(date).each do |event|
+    puts "\t{event.description} | #{event.location} | #{event.start_date}, #{event.start_time} - #{event.end_date}, #{event.end_time}"
+  end
+  date = date + 1
+  day_choice_menu(date)
+end
+
+def previous_day(date)
+  puts "#{date} Events:"
+  puts "---------------"
+  Event.previous_date(date).each do |event|
+    puts "\t{event.description} | #{event.location} | #{event.start_date}, #{event.start_time} - #{event.end_date}, #{event.end_time}"
+  end
+  date = date - 1
+  day_choice_menu(date)
+end
+
+def day_choice_menu(date)
+  puts "p: previous day's events"
+  puts "n: next day's events"
+  puts "b: go back"
+  user_input = gets.chomp.downcase
+  case user_input
+  when 'p'
+    previous_day(date)
+  when 'n'
+    next_day(date)
+  when 'b'
+    view_calendar
+  end
   main
 end
 
@@ -67,8 +103,43 @@ def week_screen
     Event.this_week.each do |event|
       puts "{event.description} | #{event.location} | #{event.start_date}, #{event.start_time} - #{event.end_date}, #{event.end_time}"
     end
-  puts "Press enter to go back to main menu."
-  gets
+  date = Date.today
+  week_choice_menu(date)
+end
+
+def next_week(date)
+  puts "#{date} Events:"
+  puts "---------------"
+  Event.next_week(date).each do |event|
+    puts "\t{event.description} | #{event.location} | #{event.start_date}, #{event.start_time} - #{event.end_date}, #{event.end_time}"
+  end
+  date = date + 1.week
+  week_choice_menu(date)
+end
+
+def previous_week(date)
+  puts "#{date} Events:"
+  puts "---------------"
+  Event.previous_week(date).each do |event|
+    puts "\t{event.description} | #{event.location} | #{event.start_date}, #{event.start_time} - #{event.end_date}, #{event.end_time}"
+  end
+  date = date - 1.week
+  week_choice_menu(date)
+end
+
+def week_choice_menu(date)
+  puts "p: previous week's events"
+  puts "n: next week's events"
+  puts "b: go back"
+  user_input = gets.chomp.downcase
+  case user_input
+  when 'p'
+    previous_week(date)
+  when 'n'
+    next_week(date)
+  when 'b'
+    view_calendar
+  end
   main
 end
 
@@ -78,10 +149,48 @@ def month_screen
   Event.this_month.each do |event|
     puts "{event.description} | #{event.location} | #{event.start_date}, #{event.start_time} - #{event.end_date}, #{event.end_time}"
   end
-  puts "Press enter to go back to main menu."
-  gets
+  date = Date.today
+  month_choice_menu(date)
+end
+
+def next_month(date)
+  puts "#{date} Events:"
+  puts "---------------"
+  Event.next_month(date).each do |event|
+    puts "\t{event.description} | #{event.location} | #{event.start_date}, #{event.start_time} - #{event.end_date}, #{event.end_time}"
+  end
+  date = date + 1.month
+  month_choice_menu(date)
+end
+
+def previous_month(date)
+  puts "#{date} Events:"
+  puts "---------------"
+  Event.previous_month(date).each do |event|
+    puts "\t{event.description} | #{event.location} | #{event.start_date}, #{event.start_time} - #{event.end_date}, #{event.end_time}"
+  end
+  date = date - 1.month
+  month_choice_menu(date)
+end
+
+def month_choice_menu(date)
+  puts "p: previous month's events"
+  puts "n: next month's events"
+  puts "b: go back"
+  user_input = gets.chomp.downcase
+  case user_input
+  when 'p'
+    previous_month(date)
+  when 'n'
+    next_month(date)
+  when 'b'
+    view_calendar
+  end
   main
 end
+
+
+
 
 def add_event
   puts "Enter Event Name:"
