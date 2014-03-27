@@ -12,4 +12,13 @@ class Event < ActiveRecord::Base
       errors.add(:end_time, "you can't end before you start. try again.")
     end
   end
+
+  def self.sort_by_date
+    sorted_events = []
+    events = Event.order(:start_time)
+    events.each do |event|
+      sorted_events << "#{event.description} | #{event.location} | #{event.start_time} #{event.end_time}"
+    end
+    sorted_events
+  end
 end

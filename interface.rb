@@ -74,12 +74,15 @@ def edit_event
   if new_event
     puts "Upate Accepted ┏(-_-)┛┗(-_-﻿ )┓┗(-_-)┛┏(-_-)┓"
   else
-    puts "Not a valid update."
+    puts "Not a valid update. (ノಠ益ಠ)ノ彡"
     edit.errors.full_messages.each { |message| puts message }
     edit_event
   end
   main
 end
 
+def list_event
+  puts Event.sort_by_date
+end
 main
 
