@@ -7,12 +7,16 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 ActiveRecord::Base.establish_connection(YAML::load(File.open('./db/config.yml'))["development"])
 
 def main
-  puts "v: to view calendar"
-  puts "a: to add an event"
-  puts "e: to edit an event"
-  puts "d: to delete an event"
-  puts "l: to list out events"
-  puts "x: to exit"
+  system('clear')
+  puts "             \e[34mMAIN MENU\e[0m       "
+  puts "* * * * * * * * * * * * * * * * * *"
+  puts "*       v: to view calendar       *"
+  puts "*       a: to add an event!       *"
+  puts "*       e: to edit an event       *"
+  puts "*      d: to delete an event      *"
+  puts "*      l: to list out events      *"
+  puts "*            x: to exit           *"
+  puts "* * * * * * * * * * * * * * * * * *"
   main_input = gets.chomp
   case main_input
   when 'a'
@@ -189,9 +193,6 @@ def month_choice_menu(date)
   main
 end
 
-
-
-
 def add_event
   puts "Enter Event Name:"
   name_input = gets.chomp.upcase
@@ -262,13 +263,9 @@ def list_event
   Event.sort_by_date.each do |event|
     puts "#{event.description} | #{event.location} | #{event.start_date}, #{event.start_time} - #{event.end_date}, #{event.end_time}"
   end
+  sleep(90)
+  main
 end
-
-# def sort_list
-#   puts "What date do you want to view the events for?"
-#   user_input = gets.chomp
-#   Event.find_date(user_input)
-# end
 
 main
 
